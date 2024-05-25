@@ -10,7 +10,6 @@ fi
 # Make .local/bin directory if it doesn't exist for user binaries
 if [[ ! -d $HOME/.local/bin ]]; then
     mkdir -p $HOME/.local/bin
-    
 fi
 
 # Add .local/bin to $PATH if it doesn't exist
@@ -125,9 +124,14 @@ fi
 # Aliases for lsd (if installed)
 # lsd is a rust ls alternative with a lot of features and fun colors/icons (Nerd Fonts required)
 if command -v lsd &> /dev/null; then
-    alias ls="lsd -F"
-    alias la="lsd -AF"
+    alias ls="lsd -F" # Add classification to file types
+    alias la="lsd -AF" rg
     alias ll="lsd -lAF"
-    alias lg="lsd -F --group-dirs=first"
-    alias lt="lsd --tree"
+    alias lg="lsd -F --group-dirs=first" # Group directories first
+    alias lt="lsd --tree --depth 5" # Show directory tree with depth of 5
+    alias li="lsd -ilAF" # Show inode numbers
+    else
+    alias la="ls -a" # Show all files
+    alias ll="ls -alh" # Show all files, long format, human readable sizes
+    alias li="ls -ialh" # Show all files, long format, human readable sizes, inode numbers
 fi
