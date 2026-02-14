@@ -3,6 +3,11 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
     source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
+# Load local environment secrets if the file exists
+if [ -f "$HOME/.secrets" ]; then
+    source "$HOME/.secrets"
+fi
+
 ###############################################
 # Cole's $PATH configs
 ###############################################
