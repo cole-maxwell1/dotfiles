@@ -72,6 +72,17 @@ setopt histignorealldups sharehistory
 # Use emacs keybindings even if EDITOR is set to vi
 bindkey -e
 
+###################################################
+# Custom key bindings for cursor navigation
+###################################################
+
+# Bind Ctrl + Right Arrow to move forward one word
+bindkey "^[[1;5C" forward-word
+# Bind Ctrl + Left Arrow to move backward one word
+bindkey "^[[1;5D" backward-word
+
+###################################################
+
 # History settings
 HISTSIZE=1000
 SAVEHIST=1000
