@@ -5,7 +5,9 @@ fi
 
 # Load local environment secrets if the file exists
 if [ -f "$HOME/.secrets" ]; then
+    set -a	
     source "$HOME/.secrets"
+    set +a
 fi
 
 ###############################################
@@ -23,7 +25,7 @@ if [[ ":$PATH:" != *":$HOME/.local/bin:"* ]]; then
 fi
 
 # Add script binaries to $PATH if they exist
-if [[ -d $HOME/.scripts && ":$PATH:" != *":$HOME/.scripts:"* ]]; then
+if [[ -d $HOME/.scripts && ":$PATH:" != *":$PATH:"* ]]; then
     export PATH=$PATH:$HOME/.scripts
 fi
 
@@ -56,7 +58,19 @@ if [[ -d $HOME/.cargo/bin && ":$PATH:" != *":$HOME/.cargo/bin:"* ]]; then
 fi
 
 ###############################################
-# zsh recommeded default configs
+# History configuration
+###############################################
+
+# Set history variables before options
+HISTFILE="$HOME/.zsh_history"
+HISTSIZE=10000
+SAVEHIST=10000
+
+# Set shell options
+setopt histignorealldups sharehistory appendhistory incappendhistory
+
+###############################################
+# zsh recommended default configs
 ###############################################
 
 # Autoload functions
@@ -65,9 +79,6 @@ autoload -Uz compinit
 
 # Initialize prompt system
 promptinit
-
-# Set shell options
-setopt histignorealldups sharehistory
 
 # Use emacs keybindings even if EDITOR is set to vi
 bindkey -e
@@ -83,11 +94,6 @@ bindkey "^[[1;5D" backward-word
 
 ###################################################
 
-# History settings
-HISTSIZE=1000
-SAVEHIST=1000
-HISTFILE=~/.zsh_history
-
 # Initialize completion system
 compinit
 
@@ -97,6 +103,7 @@ zstyle ':completion:*' completer _expand _complete _correct _approximate
 zstyle ':completion:*' format 'Completing %d'
 zstyle ':completion:*' group-name ''
 zstyle ':completion:*' menu select=2
+
 # Directory colors setup
 if command -v dircolors &> /dev/null; then
     eval "$(dircolors -b)"
@@ -141,7 +148,7 @@ fi
 # lsd is a rust ls alternative with a lot of features and fun colors/icons (Nerd Fonts required)
 if command -v lsd &> /dev/null; then
     alias ls="lsd -F" # Add classification to file types
-    alias la="lsd -AF" rg
+    alias la="lsd -AF"
     alias ll="lsd -lAF"
     alias lg="lsd -F --group-dirs=first" # Group directories first
     alias lt="lsd --tree --depth 5" # Show directory tree with depth of 5
