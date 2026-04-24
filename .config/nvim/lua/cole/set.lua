@@ -17,7 +17,7 @@ vim.opt.incsearch = true
 vim.opt.scrolloff = 8 -- Always 8 lines above
 
 -- Color scheme
-vim.cmd.colorscheme("habamax")
+vim.cmd.colorscheme("moonfly")
 
 -- Diff: Muted Red on Crimson
 vim.api.nvim_set_hl(0, "DiffAdd", {
@@ -45,32 +45,41 @@ vim.api.nvim_create_autocmd("VimEnter", {
             return
         end
 
-        -- Calculate the longest display-width line in the left (current) buffer.
-        local lines = vim.api.nvim_buf_get_lines(0, 0, -1, false)
-        local max_len = 0
-        for _, line in ipairs(lines) do
-            local len = vim.fn.strdisplaywidth(line)
-            if len > max_len then
-                max_len = len
+        -- Defer execution to unblock the initial UI render
+        vim.schedule(function()
+            -- Limit the line check to the first 2000 lines to prevent long startup times on large files
+            local max_lines_to_check = 2000
+            local line_count = vim.api.nvim_buf_line_count(0)
+            local limit = math.min(line_count, max_lines_to_check)
+            local lines = vim.api.nvim_buf_get_lines(0, 0, limit, false)
+            local max_len = 0
+
+            for _, line in ipairs(lines) do
+                local len = vim.api.nvim_strwidth(line)
+                if len > max_len then
+                    max_len = len
+                end
             end
-        end
 
-        -- Account for gutter columns (line numbers, sign column, fold column).
-        local gutter = 0
-        if vim.wo.number or vim.wo.relativenumber then
-            gutter = gutter + vim.wo.numberwidth
-        end
-        if vim.wo.signcolumn ~= "no" then
-            gutter = gutter + 2
-        end
-        gutter = gutter + vim.wo.foldcolumn
+            -- Account for gutter columns (line numbers, sign column, fold column).
+            local gutter = 0
+            if vim.wo.number or vim.wo.relativenumber then
+                gutter = gutter + vim.wo.numberwidth
+            end
+            if vim.wo.signcolumn ~= "no" then
+                gutter = gutter + 2
+            end
 
-        local desired = max_len + gutter + 1 -- +1 for the right edge padding
+            local fold_col = tonumber(vim.wo.foldcolumn) or 0
+            gutter = gutter + fold_col
 
-        -- Cap at exactly half the terminal width.
-        local half = math.floor(vim.o.columns / 2)
-        local width = math.min(desired, half)
+            local desired = max_len + gutter + 1 -- +1 for the right edge padding
 
-        vim.api.nvim_win_set_width(0, width)
+            -- Cap at exactly half the terminal width.
+            local half = math.floor(vim.o.columns / 2)
+            local width = math.min(desired, half)
+
+            vim.api.nvim_win_set_width(0, width)
+        end)
     end
 })

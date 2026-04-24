@@ -1,26 +1,46 @@
 local lsp_zero = require('lsp-zero')
 
-lsp_zero.on_attach(function(client, bufnr)
-    -- see :help lsp-zero-keybindings
-    -- to learn the available actions
+-- Attach keybindings on LSP connection
+local lsp_attach = function(client, bufnr)
     lsp_zero.default_keymaps({
         buffer = bufnr
     })
-end)
+end
 
-lsp_zero.set_sign_icons({
-    error = '✘',
-    warn = '▲',
-    hint = '⚑',
-    info = '»'
+lsp_zero.extend_lspconfig({
+    lsp_attach = lsp_attach,
+    capabilities = require('cmp_nvim_lsp').default_capabilities()
 })
 
--- to learn how to use mason.nvim
--- read this: https://github.com/VonHeikemen/lsp-zero.nvim/blob/v3.x/doc/md/guide/integrate-with-mason-nvim.md
+-- Configure diagnostic signs natively for Neovim v0.11+
+vim.diagnostic.config({
+    signs = {
+        text = {
+            [vim.diagnostic.severity.ERROR] = '✘',
+            [vim.diagnostic.severity.WARN] = '▲',
+            [vim.diagnostic.severity.HINT] = '⚑',
+            [vim.diagnostic.severity.INFO] = '»'
+        }
+    }
+})
+
 require('mason').setup({})
 require('mason-lspconfig').setup({
     ensure_installed = {'lua_ls', 'ts_ls', 'eslint', 'gopls', 'rust_analyzer'},
     handlers = {function(server_name)
-        require('lspconfig')[server_name].setup({})
+        -- Map legacy server names to their modern equivalents
+        if server_name == 'tsserver' then
+            server_name = 'ts_ls'
+        end
+
+        -- Verify the server configuration is accessible to prevent indexing errors
+        local has_config, _ = pcall(function()
+            return require('lspconfig')[server_name]
+        end)
+        if has_config then
+            require('lspconfig')[server_name].setup({})
+        else
+            vim.notify("LSP configuration not accessible for: " .. server_name, vim.log.levels.WARN)
+        end
     end}
 })
