@@ -1,4 +1,6 @@
 require("cole.remap")
-require("cole.lazy")
-require("cole.set")
+require("cole.plugins")
 require("cole.filetype")
+require("cole.set")
+require("cole.cmp")
+require("cole.lsp")
