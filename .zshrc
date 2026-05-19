@@ -57,6 +57,11 @@ if [[ -d $HOME/.cargo/bin && ":$PATH:" != *":$HOME/.cargo/bin:"* ]]; then
     export PATH=$PATH:$HOME/.cargo/bin
 fi
 
+# Add .dotnet/tools path if installed and not already in $PATH
+if [[ -d $HOME/.dotnet/tools && ":$PATH:" != *":$HOME/.dotnet/tools:"* ]]; then
+    export PATH=$PATH:$HOME/.dotnet/tools
+fi
+
 ###############################################
 # History configuration
 ###############################################
