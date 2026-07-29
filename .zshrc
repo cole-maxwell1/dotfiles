@@ -5,7 +5,7 @@ fi
 
 # Load local environment secrets if the file exists
 if [ -f "$HOME/.secrets" ]; then
-    set -a	
+    set -a
     source "$HOME/.secrets"
     set +a
 fi
@@ -29,10 +29,23 @@ if [[ -d $HOME/.scripts && ":$PATH:" != *":$PATH:"* ]]; then
     export PATH=$PATH:$HOME/.scripts
 fi
 
+# Add opencode binaries to $PATH if they exist
+if [[ -d $HOME/.opencode/bin && ":$PATH:" != *":$HOME/.opencode/bin:"* ]]; then
+    export PATH=$PATH:$HOME/.opencode/bin
+fi
+
 # Linux specific
 # if [[ "$(uname -s)" == "Linux" ]]; then
-    
+
 # fi
+
+# WSL specific
+if [ -n "$IS_WSL" ] || [ -n "$WSL_DISTRO_NAME" ]; then
+    eval $(dbus-launch --sh-syntax 2>/dev/null) 2>/dev/null || true
+    eval $(printf '' | gnome-keyring-daemon --unlock 2>/dev/null) 2>/dev/null || true
+    export SSH_AUTH_SOCK
+    export SECRET_SERVICE_BUS_ADDRESS="unix:path=/run/user/$(id -u)/keyring/control"
+fi
 
 # MacOS specific
 if [[ "$(uname -s)" == "Darwin" ]]; then
