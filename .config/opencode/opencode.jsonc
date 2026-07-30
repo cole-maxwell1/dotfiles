@@ -21,6 +21,8 @@
       "head *": "allow",
       "tail *": "allow",
       "echo *": "allow",
+      "which *": "allow",
+      "find *": "allow",
       "ls *": "allow",
       "wc *": "allow",
       "go build *": "allow",
@@ -41,7 +43,6 @@
       "id_rsa": "deny",
       "id_ed25519": "deny",
       ".aws/credentials": "deny",
-      "opencode.jsonc": "deny",
       "~/.ssh/known_hosts": "allow",
     },
     "grep": "allow",
@@ -115,12 +116,9 @@
   "snapshot": true,
   // OpenCode Quota: tuiCommandDisplay chooses whether native TUI command output appears in the session transcript or a local popup dialog.
   // OpenCode Quota: loads the server plugin for slash commands and quota checks.
-  "plugin": [
-    "./plugin/ibmi-gate.ts",
-    "@slkiser/opencode-quota@latest"
-  ],
+  "plugin": ["./plugin/ibmi-gate.ts", "@slkiser/opencode-quota@latest"],
   "provider": {
     // Detected zai authentication; opencode-quota added this global provider declaration.
-    "zai": {}
+    "zai": {},
   },
 }
