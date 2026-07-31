@@ -1,0 +1,43 @@
+sources:
+  ibmi-system:
+    host: ${DB2i_HOST}
+    user: ${DB2i_USER}
+    password: ${DB2i_PASS}
+
+tools:
+  get_column_info:
+    source: ibmi-system
+    description: >-
+      Retrieve a table's column details like TABLE_NAME, SYSTEM_TABLE_NAME,
+      COLUMN_NAME, SYSTEM_COLUMN_NAME, DATA_TYPE, LENGTH, NUMERIC_SCALE,
+      IS_NULLABLE, COLUMN_HEADING, COLUMN_TEXT from the system catalog for the
+      specified table.
+    parameters:
+      - name: table_name
+        type: string
+        description: "The name of the table to retrieve columns for."
+        required: true
+    statement: |
+      SELECT
+          TABLE_NAME,
+          SYSTEM_TABLE_NAME,
+          COLUMN_NAME,
+          SYSTEM_COLUMN_NAME,
+          DATA_TYPE,
+          LENGTH,
+          NUMERIC_SCALE,
+          IS_NULLABLE,
+          COLUMN_HEADING,
+          COLUMN_TEXT
+      FROM
+          QSYS2.SYSCOLUMNS
+      WHERE
+          TABLE_NAME = UPPER(:table_name)
+      ORDER BY
+          TABLE_NAME,
+          ORDINAL_POSITION
+
+toolsets:
+  custom_tools:
+    tools:
+      - get_column_info

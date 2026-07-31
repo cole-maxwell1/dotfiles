@@ -11,7 +11,7 @@ The zsh theme and plugins are installed manually rather than through a plugin ma
 ├── .zshrc                  # zsh config: PATH, history, completions, prompt, aliases
 ├── .config/
 │   ├── nvim/               # Neovim config (init.lua, lua/, after/, queries/)
-│   └── opencode/           # opencode config (agents, skills, plugins, rules)
+│   └── opencode/           # opencode config (commands, plugins, MCP tools, rules)
 └── .scripts/               # Standalone shell scripts (on $PATH)
     └── hello.sh
 ```

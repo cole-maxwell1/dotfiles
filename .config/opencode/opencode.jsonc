@@ -3,19 +3,21 @@
   "permission": {
     "bash": {
       "*": "ask",
+      // Git
       "git log *": "allow",
       "git commit *": "ask",
       "git status *": "allow",
       "git diff *": "allow",
       "git show *": "allow",
       "git push *": "ask",
+      // GNU Utils
       "sudo *": "deny",
       "curl *": "ask",
       "wget *": "ask",
       "diff *": "allow",
       "npm *": "allow",
-      "rm -rf *": "deny",
       "rm *": "ask",
+      "rm -rf *": "deny",
       "grep *": "allow",
       "sort *": "allow",
       "head *": "allow",
@@ -25,12 +27,22 @@
       "find *": "allow",
       "ls *": "allow",
       "wc *": "allow",
+      // Go
       "go build *": "allow",
       "go test *": "allow",
       "go vet *": "allow",
       "go mod tidy": "allow",
       "go mod download": "allow",
+      // Python
+      "python -m unittest *": "allow",
+      "python -m py_compile": "allow",
+      "python3 -m venv .venv": "allow",
+      "source .venv/bin/activate": "allow",
+      "ruff check *": "allow",
+      "ruff format --check *": "allow",
+      // Dotnet
       "dotnet *": "allow",
+      // Docker
       "docker ps *": "allow",
       "docker logs *": "allow",
       "docker compose logs *": "allow",
@@ -88,7 +100,7 @@
         "-y",
         "@ibm/ibmi-mcp-server@latest",
         "--tools",
-        "/home/colem/mcp/ibmi-mcp-server/tools/custom-tools.yaml",
+        "{env:HOME}/.config/opencode/mcp/ibmi-mcp-server/tools/custom-tools.yaml",
       ],
       "enabled": false,
       "environment": {
@@ -116,7 +128,7 @@
   "snapshot": true,
   // OpenCode Quota: tuiCommandDisplay chooses whether native TUI command output appears in the session transcript or a local popup dialog.
   // OpenCode Quota: loads the server plugin for slash commands and quota checks.
-  "plugin": ["./plugin/ibmi-gate.ts", "@slkiser/opencode-quota@latest"],
+  "plugin": ["./plugins/ibmi-gate.ts", "@slkiser/opencode-quota@latest"],
   "provider": {
     // Detected zai authentication; opencode-quota added this global provider declaration.
     "zai": {},
