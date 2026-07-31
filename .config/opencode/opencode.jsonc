@@ -93,6 +93,11 @@
         "Authorization": "Bearer {env:ZAI_API_KEY}",
       },
     },
+    "playwright": {
+      "type": "local",
+      "command": ["npx", "@playwright/mcp@latest"],
+      "enabled": true,
+    },
     "ibmi-server": {
       "type": "local",
       "command": [
@@ -113,7 +118,13 @@
     },
   },
   "watcher": {
-    "ignore": ["node_modules/**", ".git/**", "dist/**", "**/.venv/**", "**/target/**"],
+    "ignore": [
+      "node_modules/**",
+      ".git/**",
+      "dist/**",
+      "**/.venv/**",
+      "**/target/**",
+    ],
   },
   "lsp": true,
   "formatter": true,
