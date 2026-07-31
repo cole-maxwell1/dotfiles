@@ -112,6 +112,9 @@
       },
     },
   },
+  "watcher": {
+    "ignore": ["node_modules/**", ".git/**", "dist/**", "**/.venv/**", "**/target/**"],
+  },
   "lsp": true,
   "formatter": true,
   "model": "zai-coding-plan/glm-5.2",
