@@ -98,6 +98,10 @@
       "command": ["npx", "@playwright/mcp@latest"],
       "enabled": true,
     },
+    "chrome-devtools": {
+      "type": "local",
+      "command": ["npx", "-y", "chrome-devtools-mcp@latest"],
+    },
     "ibmi-server": {
       "type": "local",
       "command": [
@@ -134,17 +138,11 @@
     "explore": {
       "model": "zai-coding-plan/glm-4.5-air",
     },
-    "scout": {
-      "model": "zai-coding-plan/glm-4.5-air",
-    },
   },
   "share": "disabled",
   "snapshot": true,
-  // OpenCode Quota: tuiCommandDisplay chooses whether native TUI command output appears in the session transcript or a local popup dialog.
-  // OpenCode Quota: loads the server plugin for slash commands and quota checks.
   "plugin": ["./plugins/ibmi-gate.ts", "@slkiser/opencode-quota@latest"],
   "provider": {
-    // Detected zai authentication; opencode-quota added this global provider declaration.
     "zai": {},
   },
 }
