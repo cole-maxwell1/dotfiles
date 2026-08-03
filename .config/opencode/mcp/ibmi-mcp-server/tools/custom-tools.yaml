@@ -37,7 +37,38 @@ tools:
           TABLE_NAME,
           ORDINAL_POSITION
 
+  count_total_records:
+    source: ibmi-system
+    description: >-
+      Return the total row count for a table by reading the Db2 for i
+      catalog statistic QSYS2.SYSTABLESTAT.NUMBER_ROWS. Optionally
+      provide table_schema to disambiguate tables that share a name
+      across libraries.
+    parameters:
+      - name: table_name
+        type: string
+        description: "The name of the table to count records for."
+        required: true
+      - name: table_schema
+        type: string
+        description: "Schema/library holding the table. Example: 'MYLIB'."
+        required: true
+    statement: |
+      SELECT
+          TABLE_SCHEMA,
+          TABLE_NAME,
+          NUMBER_ROWS AS TOTAL_RECORDS,
+          LAST_USED_TIMESTAMP
+      FROM
+          QSYS2.SYSTABLESTAT
+      WHERE
+          TABLE_NAME = UPPER(:table_name)
+          AND (:table_schema IS NULL OR TABLE_SCHEMA = UPPER(:table_schema))
+      ORDER BY
+          TABLE_SCHEMA
+
 toolsets:
   custom_tools:
     tools:
       - get_column_info
+      - count_total_records
