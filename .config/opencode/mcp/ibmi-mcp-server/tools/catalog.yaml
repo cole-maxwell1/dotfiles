@@ -68,7 +68,10 @@ tools:
           TABLE_SCHEMA
 
 toolsets:
-  custom_tools:
+  catalog:
+    title: "Catalog Tools"
+    description: >-
+      System catalog introspection tools (QSYS2.SYSCOLUMNS, QSYS2.SYSTABLESTAT).
     tools:
       - get_column_info
       - count_total_records
