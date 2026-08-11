@@ -201,11 +201,11 @@
   },
   "lsp": true,
   "formatter": true,
-  "model": "openai/gpt-5.5-pro",
-  "small_model": "openai/gpt-4-turbo",
+  "model": "openai/gpt-5.6-terra",
+  "small_model": "openai/gpt-5.6-luna",
   "agent": {
     "explore": {
-      "model": "openai/gpt-4-turbo",
+      "model": "openai/gpt-5.6-luna",
     },
   },
   "share": "disabled",
