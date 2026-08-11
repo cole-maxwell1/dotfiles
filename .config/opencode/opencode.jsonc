@@ -24,12 +24,15 @@
       "which *": "allow",
       "ls *": "allow",
       "wc *": "allow",
+      "head *": "allow",
+      "tail *": "allow",
       // Go
       "go build *": "allow",
       "go test *": "allow",
       "go vet *": "allow",
       "go mod tidy": "allow",
       "go mod download": "allow",
+      "gofmt *": "allow",
       // Node.js
       "npm ci": "allow",
       "npm test": "allow",
@@ -40,6 +43,10 @@
       "npm ls *": "allow",
       "npm outdated": "allow",
       "npm audit *": "allow",
+      "npm run test:unit": "allow",
+      "npm run test:integration": "allow",
+      "npm run test:e2e": "allow",
+      "npm run type-check": "allow",
       "npx *": "ask",
       // Python
       "python -m unittest *": "allow",
@@ -194,11 +201,11 @@
   },
   "lsp": true,
   "formatter": true,
-  "model": "zai-coding-plan/glm-5.2",
-  "small_model": "zai-coding-plan/glm-4.5-air",
+  "model": "openai/gpt-5.5-pro",
+  "small_model": "openai/gpt-4-turbo",
   "agent": {
     "explore": {
-      "model": "zai-coding-plan/glm-4.5-air",
+      "model": "openai/gpt-4-turbo",
     },
   },
   "share": "disabled",
@@ -206,5 +213,9 @@
   "plugin": ["./plugins/ibmi-gate.ts", "@slkiser/opencode-quota@latest"],
   "provider": {
     "zai": {},
+    "openai": {},
+  },
+  "experimental": {
+    "disable_paste_summary": true,
   },
 }
