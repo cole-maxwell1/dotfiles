@@ -27,4 +27,8 @@ Strictly adhere to the following Conventional Commit specification rules:
 - `ops`: Infrastructure, CI/CD pipelines, deployment, or operational scripts.
 - `chore`: Maintenance tasks (e.g., updating `.gitignore`, repo setup).
 
+### Message Body
+
+The message body should provide a detailed description of the changes, including any relevant context or reasoning.
+
 Provide ONLY the proposed commit message inside a raw code block, followed by a request for my approval.
