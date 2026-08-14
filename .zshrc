@@ -25,7 +25,7 @@ if [[ ":$PATH:" != *":$HOME/.local/bin:"* ]]; then
 fi
 
 # Add script binaries to $PATH if they exist
-if [[ -d $HOME/.scripts && ":$PATH:" != *":$PATH:"* ]]; then
+if [[ -d $HOME/.scripts && ":$PATH:" != *":$HOME/.scripts:"* ]]; then
     export PATH=$PATH:$HOME/.scripts
 fi
 
