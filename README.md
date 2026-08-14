@@ -11,7 +11,7 @@ The zsh theme and plugins are installed manually rather than through a plugin ma
 ├── .zshrc                  # zsh config: PATH, history, completions, prompt, aliases
 ├── .config/
 │   ├── nvim/               # Neovim config (init.lua, lua/, after/, queries/)
-│   └── opencode/           # opencode config (commands, plugins, MCP tools, rules)
+│   └── opencode/           # opencode config (commands, plugins, skills, MCP tools, rules)
 └── .scripts/               # Standalone shell scripts (on $PATH)
     └── hello.sh
 ```
@@ -67,6 +67,29 @@ cd ~/dotfiles && stow -D .
 ```
 
 Running `stow .` again re-creates them.
+
+## Add new files or directories
+
+Add each item to the repository at the same path it should have under the home directory. For example, opencode skills belong under `~/dotfiles/.config/opencode/skills/`. Then refresh the links:
+
+```sh
+cd ~/dotfiles
+stow .
+```
+
+If the corresponding target does not exist, Stow creates the symlink. This applies to an entire new directory such as `skills` and to files added inside an already-stowed directory.
+
+If Stow reports that an existing target is neither a link nor a directory, the target is a real file that Stow will not overwrite. When the repository copy is authoritative, back up the target and rerun Stow:
+
+```sh
+mv ~/.config/opencode/opencode.jsonc ~/.config/opencode/opencode.jsonc.pre-stow-backup
+cd ~/dotfiles
+stow .
+```
+
+Repeat the backup step for every conflicting target listed by Stow. Review and remove backups only after confirming the linked configuration works.
+
+Do not use `stow --adopt` for this workflow. `--adopt` copies the existing target into the repository, replacing the repository version, which is the opposite of making the repository authoritative.
 
 ## Secrets
 
