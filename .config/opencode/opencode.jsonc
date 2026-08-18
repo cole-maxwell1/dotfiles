@@ -47,6 +47,8 @@
       "npm run test:integration": "allow",
       "npm run test:e2e": "allow",
       "npm run type-check": "allow",
+      "npm run package:dev": "allow",
+      "npx vitest run *": "allow",
       "npx *": "ask",
       // Python
       "python -m unittest *": "allow",
@@ -129,6 +131,10 @@
     "question": "allow",
     "lsp": "allow",
     "websearch": "allow",
+    "webfetch": "allow",
+    "task": "allow",
+    "todowrite": "allow",
+    "skill": "allow",
   },
   "mcp": {
     "zai-mcp-server": {
@@ -162,12 +168,18 @@
     },
     "playwright": {
       "type": "local",
+      "enabled": false,
       "command": ["npx", "@playwright/mcp@latest"],
-      "enabled": true,
     },
     "chrome-devtools": {
       "type": "local",
+      "enabled": false,
       "command": ["npx", "-y", "chrome-devtools-mcp@latest"],
+    },
+    "primevue": {
+      "type": "local",
+      "enabled": true,
+      "command": ["npx", "-y", "@primevue/mcp"],
     },
     "ibmi-server": {
       "type": "local",
