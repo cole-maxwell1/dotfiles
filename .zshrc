@@ -21,7 +21,7 @@ fi
 
 # Add .local/bin to $PATH if it doesn't exist
 if [[ ":$PATH:" != *":$HOME/.local/bin:"* ]]; then
-  export PATH=$PATH:$HOME/.local/bin
+    export PATH=$PATH:$HOME/.local/bin
 fi
 
 # Add script binaries to $PATH if they exist
@@ -52,6 +52,14 @@ if [[ "$(uname -s)" == "Darwin" ]]; then
     # Add python3.8 $PATH if installed and not already in $PATH
     if [[ -d $HOME/Library/Python/3.8/bin && ":$PATH:" != *":$HOME/Library/Python/3.8/bin:"* ]]; then
         export PATH=$PATH:$HOME/Library/Python/3.8/bin
+    fi
+
+    # Bitwarden SSH agent (only if the application is installed and the socket file exists)
+    local bw_app="/Applications/Bitwarden.app"
+    local bw_sock="$HOME/.bitwarden-ssh-agent.sock"
+
+    if [[ -d "$bw_app" && -S "$bw_sock" ]]; then
+        export SSH_AUTH_SOCK="$bw_sock"
     fi
 fi
 
@@ -171,7 +179,7 @@ if command -v lsd &> /dev/null; then
     alias lg="lsd -F --group-dirs=first" # Group directories first
     alias lt="lsd --tree --depth 5" # Show directory tree with depth of 5
     alias li="lsd -ilAF" # Show inode numbers
-    else
+else
     alias la="ls -a" # Show all files
     alias ll="ls -alh" # Show all files, long format, human readable sizes
     alias li="ls -ialh" # Show all files, long format, human readable sizes, inode numbers
