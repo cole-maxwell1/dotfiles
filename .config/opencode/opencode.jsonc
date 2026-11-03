@@ -233,18 +233,12 @@
       "playwright": {
         "type": "local",
         "disabled": false,
-        "command": ["npx", "@playwright/mcp@latest"],
+        "command": ["npx", "-y", "@playwright/mcp@latest"],
       },
       "chrome-devtools": {
         "type": "local",
         "disabled": false,
-        "command": [
-          "npx",
-          "-y",
-          "chrome-devtools-mcp@latest",
-          "--executablePath",
-          "/usr/bin/chromium",
-        ],
+        "command": ["npx", "-y", "chrome-devtools-mcp@latest"],
       },
       "primevue": {
         "type": "local",
