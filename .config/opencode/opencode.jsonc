@@ -1,215 +1,275 @@
 {
   "$schema": "https://opencode.ai/config.json",
-  "permission": {
-    "bash": {
-      "*": "ask",
-      // Git
-      "git log *": "allow",
-      "git commit *": "ask",
-      "git status *": "allow",
-      "git diff *": "allow",
-      "git show *": "allow",
-      "git push *": "ask",
-      // Privilege escalation
-      "sudo *": "deny",
-      "su *": "deny",
-      "doas *": "deny",
-      // GNU Util
-      "curl *": "ask",
-      "wget *": "ask",
-      "diff *": "allow",
-      "rm *": "ask",
-      "rm -rf *": "deny",
-      "sort *": "allow",
-      "which *": "allow",
-      "ls *": "allow",
-      "wc *": "allow",
-      "head *": "allow",
-      "tail *": "allow",
-      // Go
-      "go build *": "allow",
-      "go test *": "allow",
-      "go vet *": "allow",
-      "go mod tidy": "allow",
-      "go mod download": "allow",
-      "gofmt *": "allow",
-      // Node.js
-      "npm ci": "allow",
-      "npm test": "allow",
-      "npm run build": "allow",
-      "npm run lint": "allow",
-      "npm run typecheck": "allow",
-      "npm run check": "allow",
-      "npm ls *": "allow",
-      "npm outdated": "allow",
-      "npm audit *": "allow",
-      "npm run test:unit": "allow",
-      "npm run test:integration": "allow",
-      "npm run test:e2e": "allow",
-      "npm run type-check": "allow",
-      "npm run package:dev": "allow",
-      "npx vitest run *": "allow",
-      "npx *": "ask",
-      // Python
-      "python -m unittest *": "allow",
-      "python -m py_compile": "allow",
-      "python3 -m unittest *": "allow",
-      "python3 -m py_compile": "allow",
-      "python -m venv .venv": "allow",
-      "python3 -m venv .venv": "allow",
-      "source .venv/bin/activate": "allow",
-      "ruff check *": "allow",
-      "ruff format --check *": "allow",
-      "ruff format *": "ask",
-      // Dotnet
-      "dotnet build *": "allow",
-      "dotnet test *": "allow",
-      "dotnet restore *": "allow",
-      "dotnet format *": "allow",
-      "dotnet vet *": "allow",
-      "dotnet workload *": "ask",
-      "dotnet run *": "allow",
-      // Docker
-      "docker ps *": "allow",
-      "docker logs *": "allow",
-      "docker compose logs *": "allow",
-      "docker manifest inspect": "allow",
-      // Ansible
-      "ansible-playbook --version": "allow",
-      "ansible-playbook --syntax-check *": "allow",
-      "ansible-lint --version": "allow",
-      // OpenTofu
-      "tofu version": "allow",
-      "tofu init -backend=false": "allow",
-      "tofu validate *": "allow",
-      "tofu fmt -check *": "allow",
-      "tofu plan *": "allow",
+  "permissions": [
+    { "action": "shell", "resource": "*", "effect": "ask" },
+    // Git
+    { "action": "shell", "resource": "git log *", "effect": "allow" },
+    { "action": "shell", "resource": "git commit *", "effect": "ask" },
+    { "action": "shell", "resource": "git status *", "effect": "allow" },
+    { "action": "shell", "resource": "git diff *", "effect": "allow" },
+    { "action": "shell", "resource": "git show *", "effect": "allow" },
+    { "action": "shell", "resource": "git push *", "effect": "ask" },
+    // Privilege escalation
+    { "action": "shell", "resource": "sudo *", "effect": "deny" },
+    { "action": "shell", "resource": "su *", "effect": "deny" },
+    { "action": "shell", "resource": "doas *", "effect": "deny" },
+    // GNU Util
+    { "action": "shell", "resource": "curl *", "effect": "ask" },
+    { "action": "shell", "resource": "wget *", "effect": "ask" },
+    { "action": "shell", "resource": "diff *", "effect": "allow" },
+    { "action": "shell", "resource": "rm *", "effect": "ask" },
+    { "action": "shell", "resource": "rm -rf *", "effect": "deny" },
+    { "action": "shell", "resource": "sort *", "effect": "allow" },
+    { "action": "shell", "resource": "which *", "effect": "allow" },
+    { "action": "shell", "resource": "ls *", "effect": "allow" },
+    { "action": "shell", "resource": "wc *", "effect": "allow" },
+    { "action": "shell", "resource": "head *", "effect": "allow" },
+    { "action": "shell", "resource": "tail *", "effect": "allow" },
+    // Go
+    { "action": "shell", "resource": "go build *", "effect": "allow" },
+    { "action": "shell", "resource": "go test *", "effect": "allow" },
+    { "action": "shell", "resource": "go vet *", "effect": "allow" },
+    { "action": "shell", "resource": "go mod tidy", "effect": "allow" },
+    { "action": "shell", "resource": "go mod download", "effect": "allow" },
+    { "action": "shell", "resource": "gofmt *", "effect": "allow" },
+    // Node.js
+    { "action": "shell", "resource": "npm ci", "effect": "allow" },
+    { "action": "shell", "resource": "npm test", "effect": "allow" },
+    { "action": "shell", "resource": "npm run build", "effect": "allow" },
+    { "action": "shell", "resource": "npm run lint", "effect": "allow" },
+    { "action": "shell", "resource": "npm run typecheck", "effect": "allow" },
+    { "action": "shell", "resource": "npm run check", "effect": "allow" },
+    { "action": "shell", "resource": "npm ls *", "effect": "allow" },
+    { "action": "shell", "resource": "npm outdated", "effect": "allow" },
+    { "action": "shell", "resource": "npm audit *", "effect": "allow" },
+    { "action": "shell", "resource": "npm run test:*", "effect": "allow" },
+    { "action": "shell", "resource": "npm run build-only", "effect": "allow" },
+    { "action": "shell", "resource": "npm run type-check", "effect": "allow" },
+    { "action": "shell", "resource": "npm run package:dev", "effect": "allow" },
+    { "action": "shell", "resource": "npx vitest run *", "effect": "allow" },
+    { "action": "shell", "resource": "npx *", "effect": "ask" },
+    // Python
+    {
+      "action": "shell",
+      "resource": "python -m unittest *",
+      "effect": "allow",
     },
-    "read": {
-      "/tmp/opencode": "allow",
-      "/tmp/opencode/*": "allow",
-      "~/.ssh/known_hosts": "allow",
-      // Env / secrets — recursive + variants
-      ".env": "deny",
-      ".env.*": "deny",
-      "**/.env": "deny",
-      "**/.env.*": "deny",
-      ".secrets": "deny",
-      "**/.secrets": "deny",
-      ".secrets.*": "deny",
-      // Key material
-      "*.key": "deny",
-      "*.pem": "deny",
-      "*.p12": "deny",
-      "*.pfx": "deny",
-      "*.keystore": "deny",
-      "*.jks": "deny",
-      "*.kdbx": "deny", // KeePass
-      // SSH keys — all algorithms incl. FIDO
-      "id_rsa": "deny",
-      "id_ecdsa": "deny",
-      "id_ed25519": "deny",
-      "id_dsa": "deny",
-      "id_ecdsa_sk": "deny",
-      "id_ed25519_sk": "deny",
-      "~/.ssh/id_*": "deny", // catch-all absolute
-      "~/.ssh/config": "deny", // may contain HostName + IdentityFile
-      // Cloud / service credentials
-      ".aws/credentials": "deny",
-      "~/.aws/credentials": "deny",
-      "~/.aws/config": "deny",
-      "~/.config/gcloud/*": "deny",
-      "~/.kube/config": "deny",
-      "~/.npmrc": "deny", // often contains _authToken
-      "~/.pypirc": "deny",
-      "~/.netrc": "deny",
-      "~/.docker/config.json": "deny",
-      // Misc
-      ".npmrc": "deny", // project-local tokens
-      "**/.npmrc": "deny",
+    {
+      "action": "shell",
+      "resource": "python -m py_compile",
+      "effect": "allow",
     },
-    "edit": {
-      "/tmp/opencode": "allow",
-      "/tmp/opencode/*": "allow",
-      // Explicit deny for dotfiles reduces accidental writes
-      ".env*": "deny",
-      ".git/*": "deny",
-      "**/.git/*": "deny",
-      ".hooks/*": "ask", // git hook injection
+    {
+      "action": "shell",
+      "resource": "python3 -m unittest *",
+      "effect": "allow",
     },
-    "grep": "allow",
-    "glob": "allow",
-    "question": "allow",
-    "lsp": "allow",
-    "websearch": "allow",
-    "webfetch": "allow",
-    "task": "allow",
-    "todowrite": "allow",
-    "skill": "allow",
-  },
+    {
+      "action": "shell",
+      "resource": "python3 -m py_compile",
+      "effect": "allow",
+    },
+    {
+      "action": "shell",
+      "resource": "python -m venv .venv",
+      "effect": "allow",
+    },
+    {
+      "action": "shell",
+      "resource": "python3 -m venv .venv",
+      "effect": "allow",
+    },
+    {
+      "action": "shell",
+      "resource": "source .venv/bin/activate",
+      "effect": "allow",
+    },
+    { "action": "shell", "resource": "ruff check *", "effect": "allow" },
+    {
+      "action": "shell",
+      "resource": "ruff format --check *",
+      "effect": "allow",
+    },
+    { "action": "shell", "resource": "ruff format *", "effect": "ask" },
+    // Dotnet
+    { "action": "shell", "resource": "dotnet build *", "effect": "allow" },
+    { "action": "shell", "resource": "dotnet test *", "effect": "allow" },
+    { "action": "shell", "resource": "dotnet restore *", "effect": "allow" },
+    { "action": "shell", "resource": "dotnet format *", "effect": "allow" },
+    { "action": "shell", "resource": "dotnet vet *", "effect": "allow" },
+    { "action": "shell", "resource": "dotnet workload *", "effect": "ask" },
+    { "action": "shell", "resource": "dotnet run *", "effect": "allow" },
+    // Docker
+    { "action": "shell", "resource": "docker ps *", "effect": "allow" },
+    { "action": "shell", "resource": "docker logs *", "effect": "allow" },
+    {
+      "action": "shell",
+      "resource": "docker compose logs *",
+      "effect": "allow",
+    },
+    {
+      "action": "shell",
+      "resource": "docker manifest inspect",
+      "effect": "allow",
+    },
+    // Ansible
+    {
+      "action": "shell",
+      "resource": "ansible-playbook --version",
+      "effect": "allow",
+    },
+    {
+      "action": "shell",
+      "resource": "ansible-playbook --syntax-check *",
+      "effect": "allow",
+    },
+    {
+      "action": "shell",
+      "resource": "ansible-lint --version",
+      "effect": "allow",
+    },
+    // OpenTofu
+    { "action": "shell", "resource": "tofu version", "effect": "allow" },
+    {
+      "action": "shell",
+      "resource": "tofu init -backend=false",
+      "effect": "allow",
+    },
+    { "action": "shell", "resource": "tofu validate *", "effect": "allow" },
+    { "action": "shell", "resource": "tofu fmt -check *", "effect": "allow" },
+    { "action": "shell", "resource": "tofu plan *", "effect": "allow" },
+    { "action": "read", "resource": "/tmp/opencode", "effect": "allow" },
+    { "action": "read", "resource": "/tmp/opencode/*", "effect": "allow" },
+    { "action": "read", "resource": "~/.ssh/known_hosts", "effect": "allow" },
+    // Env / secrets — recursive + variants
+    { "action": "read", "resource": ".env", "effect": "deny" },
+    { "action": "read", "resource": ".env.*", "effect": "deny" },
+    { "action": "read", "resource": "**/.env", "effect": "deny" },
+    { "action": "read", "resource": "**/.env.*", "effect": "deny" },
+    { "action": "read", "resource": ".secrets", "effect": "deny" },
+    { "action": "read", "resource": "**/.secrets", "effect": "deny" },
+    { "action": "read", "resource": ".secrets.*", "effect": "deny" },
+    { "action": "read", "resource": "~/.odbc.ini", "effect": "deny" },
+    // Key material
+    { "action": "read", "resource": "*.key", "effect": "deny" },
+    { "action": "read", "resource": "*.pem", "effect": "deny" },
+    { "action": "read", "resource": "*.p12", "effect": "deny" },
+    { "action": "read", "resource": "*.pfx", "effect": "deny" },
+    { "action": "read", "resource": "*.keystore", "effect": "deny" },
+    { "action": "read", "resource": "*.jks", "effect": "deny" },
+    { "action": "read", "resource": "*.kdbx", "effect": "deny" }, // KeePass
+    // SSH keys — all algorithms incl. FIDO
+    { "action": "read", "resource": "id_rsa", "effect": "deny" },
+    { "action": "read", "resource": "id_ecdsa", "effect": "deny" },
+    { "action": "read", "resource": "id_ed25519", "effect": "deny" },
+    { "action": "read", "resource": "id_dsa", "effect": "deny" },
+    { "action": "read", "resource": "id_ecdsa_sk", "effect": "deny" },
+    { "action": "read", "resource": "id_ed25519_sk", "effect": "deny" },
+    { "action": "read", "resource": "~/.ssh/id_*", "effect": "deny" }, // catch-all absolute
+    { "action": "read", "resource": "~/.ssh/config", "effect": "deny" }, // may contain HostName + IdentityFile
+    // Cloud / service credentials
+    { "action": "read", "resource": ".aws/credentials", "effect": "deny" },
+    { "action": "read", "resource": "~/.aws/credentials", "effect": "deny" },
+    { "action": "read", "resource": "~/.aws/config", "effect": "deny" },
+    { "action": "read", "resource": "~/.config/gcloud/*", "effect": "deny" },
+    { "action": "read", "resource": "~/.kube/config", "effect": "deny" },
+    { "action": "read", "resource": "~/.npmrc", "effect": "deny" }, // often contains _authToken
+    { "action": "read", "resource": "~/.pypirc", "effect": "deny" },
+    { "action": "read", "resource": "~/.netrc", "effect": "deny" },
+    { "action": "read", "resource": "~/.docker/config.json", "effect": "deny" },
+    // Misc
+    { "action": "read", "resource": ".npmrc", "effect": "deny" }, // project-local tokens
+    { "action": "read", "resource": "**/.npmrc", "effect": "deny" },
+    { "action": "edit", "resource": "/tmp/opencode", "effect": "allow" },
+    { "action": "edit", "resource": "/tmp/opencode/*", "effect": "allow" },
+    // Explicit deny for dotfiles reduces accidental writes
+    { "action": "edit", "resource": ".env*", "effect": "deny" },
+    { "action": "edit", "resource": ".git/*", "effect": "deny" },
+    { "action": "edit", "resource": "**/.git/*", "effect": "deny" },
+    { "action": "edit", "resource": ".hooks/*", "effect": "ask" }, // git hook injection
+    { "action": "grep", "resource": "*", "effect": "allow" },
+    { "action": "glob", "resource": "*", "effect": "allow" },
+    { "action": "question", "resource": "*", "effect": "allow" },
+    { "action": "lsp", "resource": "*", "effect": "allow" },
+    { "action": "websearch", "resource": "*", "effect": "allow" },
+    { "action": "webfetch", "resource": "*", "effect": "allow" },
+    { "action": "subagent", "resource": "*", "effect": "allow" },
+    { "action": "todowrite", "resource": "*", "effect": "allow" },
+    { "action": "skill", "resource": "*", "effect": "allow" },
+    // V1 asked before accessing paths outside the project.
+    { "action": "external_directory", "resource": "*", "effect": "ask" },
+  ],
   "mcp": {
-    "zai-mcp-server": {
-      "type": "local",
-      "command": ["npx", "-y", "@z_ai/mcp-server"],
-      "environment": {
-        "Z_AI_API_KEY": "{env:ZAI_API_KEY}",
-        "Z_AI_MODE": "ZAI",
+    "servers": {
+      "zai-mcp-server": {
+        "type": "local",
+        "command": ["npx", "-y", "@z_ai/mcp-server"],
+        "environment": {
+          "Z_AI_API_KEY": "{env:ZAI_API_KEY}",
+          "Z_AI_MODE": "ZAI",
+        },
       },
-    },
-    "web-search-prime": {
-      "type": "remote",
-      "url": "https://api.z.ai/api/mcp/web_search_prime/mcp",
-      "headers": {
-        "Authorization": "Bearer {env:ZAI_API_KEY}",
+      "web-search-prime": {
+        "type": "remote",
+        "url": "https://api.z.ai/api/mcp/web_search_prime/mcp",
+        "headers": {
+          "Authorization": "Bearer {env:ZAI_API_KEY}",
+        },
       },
-    },
-    "web-reader": {
-      "type": "remote",
-      "url": "https://api.z.ai/api/mcp/web_reader/mcp",
-      "headers": {
-        "Authorization": "Bearer {env:ZAI_API_KEY}",
+      "web-reader": {
+        "type": "remote",
+        "url": "https://api.z.ai/api/mcp/web_reader/mcp",
+        "headers": {
+          "Authorization": "Bearer {env:ZAI_API_KEY}",
+        },
       },
-    },
-    "zread": {
-      "type": "remote",
-      "url": "https://api.z.ai/api/mcp/zread/mcp",
-      "headers": {
-        "Authorization": "Bearer {env:ZAI_API_KEY}",
+      "zread": {
+        "type": "remote",
+        "url": "https://api.z.ai/api/mcp/zread/mcp",
+        "headers": {
+          "Authorization": "Bearer {env:ZAI_API_KEY}",
+        },
       },
-    },
-    "playwright": {
-      "type": "local",
-      "enabled": false,
-      "command": ["npx", "@playwright/mcp@latest"],
-    },
-    "chrome-devtools": {
-      "type": "local",
-      "enabled": false,
-      "command": ["npx", "-y", "chrome-devtools-mcp@latest"],
-    },
-    "primevue": {
-      "type": "local",
-      "enabled": true,
-      "command": ["npx", "-y", "@primevue/mcp"],
-    },
-    "ibmi-server": {
-      "type": "local",
-      "command": [
-        "npx",
-        "-y",
-        "@ibm/ibmi-mcp-server@latest",
-        "--builtin-tools",
-        "--tools",
-        "{env:HOME}/.config/opencode/mcp/ibmi-mcp-server/tools",
-      ],
-      "enabled": false,
-      "environment": {
-        "DB2i_HOST": "{env:DB2i_HOST}",
-        "DB2i_USER": "{env:DB2i_USER}",
-        "DB2i_PASS": "{env:DB2i_PASS}",
-        "DB2i_PORT": "8076",
-        "YAML_ALLOW_DUPLICATE_SOURCES": "true",
-        "SELECTED_TOOLSETS": "catalog",
+      "playwright": {
+        "type": "local",
+        "disabled": false,
+        "command": ["npx", "@playwright/mcp@latest"],
+      },
+      "chrome-devtools": {
+        "type": "local",
+        "disabled": false,
+        "command": [
+          "npx",
+          "-y",
+          "chrome-devtools-mcp@latest",
+          "--executablePath",
+          "/usr/bin/chromium",
+        ],
+      },
+      "primevue": {
+        "type": "local",
+        "disabled": false,
+        "command": ["npx", "-y", "@primevue/mcp"],
+      },
+      "ibmi-server": {
+        "type": "local",
+        "command": [
+          "npx",
+          "-y",
+          "@ibm/ibmi-mcp-server@latest",
+          "--builtin-tools",
+          "--tools",
+          "{env:HOME}/.config/opencode/mcp/ibmi-mcp-server/tools",
+        ],
+        "disabled": true,
+        "environment": {
+          "DB2i_HOST": "{env:DB2i_HOST}",
+          "DB2i_USER": "{env:DB2i_USER}",
+          "DB2i_PASS": "{env:DB2i_PASS}",
+          "DB2i_PORT": "8076",
+          "YAML_ALLOW_DUPLICATE_SOURCES": "true",
+          "SELECTED_TOOLSETS": "catalog",
+        },
       },
     },
   },
@@ -225,20 +285,22 @@
   "lsp": true,
   "formatter": true,
   "model": "openai/gpt-5.6-sol",
-  "small_model": "openai/gpt-5.6-luna",
-  "agent": {
+  "agents": {
     "explore": {
+      "model": "openai/gpt-5.6-luna",
+    },
+    "title": {
       "model": "openai/gpt-5.6-luna",
     },
   },
   "share": "disabled",
-  "snapshot": true,
-  "plugin": ["./plugins/ibmi-gate.ts", "@slkiser/opencode-quota@latest"],
-  "provider": {
+  "snapshots": true,
+  "plugins": ["@slkiser/opencode-quota@latest"],
+  "providers": {
     "zai": {},
     "openai": {},
   },
   "experimental": {
-    "disable_paste_summary": true,
+    "todo": true,
   },
 }
