@@ -24,9 +24,14 @@ if [[ ":$PATH:" != *":$HOME/.local/bin:"* ]]; then
     export PATH=$PATH:$HOME/.local/bin
 fi
 
-# Add script binaries to $PATH if they exist
+# Add scripts to $PATH if they exist
 if [[ -d $HOME/.scripts && ":$PATH:" != *":$HOME/.scripts:"* ]]; then
     export PATH=$PATH:$HOME/.scripts
+fi
+
+# Add work scripts to $PATH if they exist
+if [[ -d $HOME/.scripts/work && ":$PATH:" != *":$HOME/.scripts/work:"* ]]; then
+    export PATH=$PATH:$HOME/.scripts/work
 fi
 
 # Add opencode binaries to $PATH if they exist
