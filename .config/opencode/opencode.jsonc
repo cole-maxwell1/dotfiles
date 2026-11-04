@@ -201,6 +201,10 @@
   ],
   "mcp": {
     "servers": {
+      "openai-docs": {
+        "type": "remote",
+        "url": "https://developers.openai.com/mcp",
+      },
       "zai-mcp-server": {
         "type": "local",
         "command": ["npx", "-y", "@z_ai/mcp-server"],
@@ -264,6 +268,14 @@
           "YAML_ALLOW_DUPLICATE_SOURCES": "true",
           "SELECTED_TOOLSETS": "catalog",
         },
+      },
+      "context7": {
+        "type": "remote",
+        "url": "https://mcp.context7.com/mcp",
+      },
+      "microsoft-learn": {
+        "type": "remote",
+        "url": "https://learn.microsoft.com/api/mcp",
       },
     },
   },
