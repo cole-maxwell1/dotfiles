@@ -13,6 +13,11 @@ vim.opt.smartindent = true
 vim.opt.hlsearch = false
 vim.opt.incsearch = true
 
+-- Completion
+vim.opt.autocomplete = true
+vim.opt.complete = ".,w,b,u,t,o"
+vim.opt.completeopt = "menu,menuone,noselect,popup,fuzzy"
+
 -- Scroll settings
 vim.opt.scrolloff = 8 -- Always 8 lines above
 

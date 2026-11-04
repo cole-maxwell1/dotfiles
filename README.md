@@ -23,6 +23,7 @@ Everything above is relative to the home directory, which is exactly what `stow 
 ### Required
 
 - **GNU `stow`** — install with the system package manager (`brew install stow`, `apt install stow`, etc.).
+- **Neovim 0.12 or newer** — required for the built-in plugin manager, automatic completion, and LSP APIs used by the configuration.
 - **A Nerd Font** — [install](https://github.com/ryanoasis/nerd-fonts) one and [configure](https://github.com/romkatv/powerlevel10k?tab=readme-ov-file#meslo-nerd-font-patched-for-powerlevel10k) it in the terminal, editor, and IDE of choice. Required for icons in the prompt and `lsd`.
 
 ### Shell theme and plugins
@@ -33,6 +34,20 @@ Clone into `~/.zsh/` so `.zshrc` picks them up automatically:
 git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ~/.zsh/powerlevel10k
 git clone --depth=1 https://github.com/zsh-users/zsh-autosuggestions ~/.zsh/zsh-autosuggestions
 ```
+
+### Neovim
+
+The first startup installs the plugins pinned in `.config/nvim/nvim-pack-lock.json`, the configured language servers, and Tree-sitter parsers. Keep Neovim open until the initial installations finish.
+
+Use the built-in plugin manager and the two retained tool installers for updates:
+
+```vim
+:lua vim.pack.update()
+:MasonToolsUpdate
+:TSUpdate
+```
+
+The configuration uses Neovim's native completion controls: `Ctrl-Y` accepts a completion, `Ctrl-N` and `Ctrl-P` move through results, `Ctrl-E` cancels, and `Ctrl-X Ctrl-F` completes file paths. `<leader>ff` opens the native fuzzy file picker.
 
 ### Optional
 

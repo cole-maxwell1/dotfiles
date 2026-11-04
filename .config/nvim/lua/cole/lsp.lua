@@ -1,14 +1,21 @@
 require("mason").setup()
 
 require("mason-tool-installer").setup({
-    ensure_installed = {"lua_ls", "gopls", "ts_ls", "eslint", "rust_analyzer", "jsonls", "bashls", "stylua", "prettier",
-                        "goimports", "shfmt"}
-})
-
-local capabilities = require("cmp_nvim_lsp").default_capabilities()
-
-vim.lsp.config("*", {
-    capabilities = capabilities
+    ensure_installed = {
+        "lua-language-server",
+        "gopls",
+        "typescript-language-server",
+        "eslint-lsp",
+        "rust-analyzer",
+        "roslyn-language-server",
+        "json-lsp",
+        "bash-language-server"
+    },
+    integrations = {
+        ["mason-lspconfig"] = false,
+        ["mason-null-ls"] = false,
+        ["mason-nvim-dap"] = false
+    }
 })
 
 vim.lsp.config("lua_ls", {
@@ -73,13 +80,7 @@ vim.lsp.config("rust_analyzer", {
     }
 })
 
-require("mason-lspconfig").setup({
-    automatic_enable = {
-        exclude = {"ts_ls"}
-    }
-})
-
-vim.lsp.enable("ts_ls")
+vim.lsp.enable({"lua_ls", "gopls", "ts_ls", "eslint", "rust_analyzer", "roslyn_ls", "jsonls", "bashls"})
 
 vim.diagnostic.config({
     severity_sort = true,
@@ -110,28 +111,11 @@ vim.diagnostic.config({
 
 vim.api.nvim_create_autocmd("LspAttach", {
     callback = function(args)
-        local bufnr = args.buf
-
-        local map = function(mode, lhs, rhs, desc)
-            vim.keymap.set(mode, lhs, rhs, {
-                buffer = bufnr,
-                silent = true,
-                desc = desc
+        local client = vim.lsp.get_client_by_id(args.data.client_id)
+        if client and client:supports_method(vim.lsp.protocol.Methods.textDocument_completion) then
+            vim.lsp.completion.enable(true, client.id, args.buf, {
+                autotrigger = true
             })
         end
-
-        map("n", "K", vim.lsp.buf.hover, "LSP hover")
-        map("n", "gd", vim.lsp.buf.definition, "Go to definition")
-        map("n", "gD", vim.lsp.buf.declaration, "Go to declaration")
-        map("n", "gi", vim.lsp.buf.implementation, "Go to implementation")
-        map("n", "gr", vim.lsp.buf.references, "References")
-        map("n", "<leader>rn", vim.lsp.buf.rename, "Rename symbol")
-        map({"n", "v"}, "<leader>ca", vim.lsp.buf.code_action, "Code action")
-
-        map("n", "<leader>f", function()
-            vim.lsp.buf.format({
-                async = true
-            })
-        end, "Format buffer")
     end
 })
